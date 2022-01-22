@@ -17,6 +17,7 @@ from utils.callbacks import AccHistoryPlot, EarlyStopping
 from utils.model_conjoint_dense import conjoint_cnn_denseblock, conjoint_cnn_sep_denseblock
 from numpy import random
 import datetime
+from utils.encoding_feature import write_file
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
@@ -120,6 +121,8 @@ def main(args):
         return features
 
     # 加载数据
+    write_file(DATA_SET)
+
     def load_data(data_set):
         positive_pairs = {}
         negtive_pairs = {}
@@ -308,8 +311,8 @@ def main(args):
         train_id = [i for i in range(sample_train_num) if i % K_FOLD != fold]
         test_id = [i for i in range(sample_train_num) if i % K_FOLD == fold]
 
-        X_train_conjoint = [np.array(X_train_al_sep[0][0][train_id]), np.array(X_train_al_sep[0][1][train_id]), np.array(X_train_al_sep[0][4][train_id]), np.array(X_train_al_sep[0][5][train_id]), np.array(X_train_al_sep[0][2][train_id]), np.array(X_train_al_sep[0][3][train_id])]
-        X_test_conjoint = [np.array(X_train_al_sep[0][0][test_id]), np.array(X_train_al_sep[0][1][test_id]), np.array(X_train_al_sep[0][4][test_id]), np.array(X_train_al_sep[0][5][test_id]), np.array(X_train_al_sep[0][2][test_id]), np.array(X_train_al_sep[0][3][test_id])]
+        X_train_conjoint = [np.array(X_train_al_sep[0][0][train_id]), np.array(X_train_al_sep[0][1][train_id]), np.array(X_train_al_sep[0][2][train_id]), np.array(X_train_al_sep[0][3][train_id]), np.array(X_train_al_sep[0][4][train_id]), np.array(X_train_al_sep[0][5][train_id])]
+        X_test_conjoint = [np.array(X_train_al_sep[0][0][test_id]), np.array(X_train_al_sep[0][1][test_id]), np.array(X_train_al_sep[0][2][test_id]), np.array(X_train_al_sep[0][3][test_id]), np.array(X_train_al_sep[0][4][test_id]), np.array(X_train_al_sep[0][5][test_id])]
 
         y_train_mono = y_train_al[train_id]
         y_train = np_utils.to_categorical(y_train_mono, 2)
@@ -322,15 +325,15 @@ def main(args):
         # =================================================================
 
         stage = method
-        print("\n# Module LPI-MFC part #\n")
+        print("\n# Module LPI-CSFFR part #\n")
 
         print('start train ' + args.mode)
         if args.mode == 'cnn_denseblock':
-            model_conjoint_cnn_sep = conjoint_cnn_denseblock(p_seq_coding_length,r_seq_coding_length,  p_pse_coding_length,r_pse_coding_length,p_struct_coding_length, r_struct_coding_length,
+            model_conjoint_cnn_sep = conjoint_cnn_denseblock(p_seq_coding_length,r_seq_coding_length, p_struct_coding_length, r_struct_coding_length, p_pse_coding_length,r_pse_coding_length,
                                                              pro_seq_coding = True, pro_struct_coding = True, pro_pse_coding = True, rna_seq_coding = True, rna_struct_coding = True, rna_pse_coding = True)
 
         elif args.mode == 'cnnsep_denseblock':
-            model_conjoint_cnn_sep = conjoint_cnn_sep_denseblock( p_seq_coding_length, r_seq_coding_length,p_pse_coding_length, r_pse_coding_length,p_struct_coding_length, r_struct_coding_length,
+            model_conjoint_cnn_sep = conjoint_cnn_sep_denseblock( p_seq_coding_length, r_seq_coding_length,p_struct_coding_length, r_struct_coding_length,p_pse_coding_length, r_pse_coding_length,
                                                                  pro_seq_coding=True, pro_struct_coding=True,
                                                                  pro_pse_coding=True, rna_seq_coding=True,
                                                                  rna_struct_coding=True, rna_pse_coding=True)
@@ -350,12 +353,12 @@ def main(args):
                                    verbose=VERBOSE,
                                    shuffle=SHUFFLE,
                                    callbacks=callbacks, validation_data=(X_test_conjoint, y_test))
-        model_path = result_save_path + f'model-{fold:}.h5'
-        modelsave = model_conjoint_cnn_sep.save(model_path)
+        # model_path = result_save_path + f'model-{fold:}.h5'
+        # modelsave = model_conjoint_cnn_sep.save(model_path)
         # test
         y_test_predict = model_conjoint_cnn_sep.predict(X_test_conjoint)
         model_metrics[method] = np.array(calc_metrics(y_test[:, 1], y_test_predict[:, 1]))
-        print('Best performance for module LPI-MFC:\n {}\n'.format(model_metrics[method].tolist()))
+        print('Best performance for module LPI-CSFFR:\n {}\n'.format(model_metrics[method].tolist()))
 
         # =================================================================
 
