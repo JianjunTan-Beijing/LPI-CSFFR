@@ -1,14 +1,14 @@
 # LPI-CSFFR
-LPI-MFC
+
 Predicting lncRNA-protein interactions by combining serial fusion with feature reuse 
 
 we proposed a computational method LPI-MFC to predict lncRNA-protein interactions from sequences, secondary structure, and physicochemical property, which made use of deep learning CNN and further improve its performance using feature reuse strategy. 
 
-Dependency:
+# Dependency:
 
 python 3.6.5
 
-Requirment:
+# Requirment:
 
 h5py==2.10.0
 
@@ -32,7 +32,7 @@ python pse.py  ./data/sequence/RPI1460_rdrna_seq.txt  RNA PC-PseDNC-General -all
 
 python pse.py  ./data/sequence/RPI1460_rdprotein_seq.txt  Protein PC-PseAAC-General -all_index ./data/pse/RPI1460_rdprotein_pse.txt
 
-Usage: 
+# Usage: 
 
 python main.py -d 'RPI1460' -sample 'random' -mode 'cnnsep_denseblock'
 
@@ -40,8 +40,8 @@ where 'RPI1460' is lncRNA-protein interaction dataset, 'random' means the negati
 
 
 
-Reference:
+# Reference:
 
 LPI-CSFFR: Combining Serial Fusion with Feature Reuse for Predicting LncRNA-Protein Interactions 
 
-Contact: tanjianjun@bjut.edu.cn
+# Contact: tanjianjun@bjut.edu.cn
