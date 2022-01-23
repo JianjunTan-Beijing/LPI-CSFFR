@@ -2,7 +2,7 @@
 
 Predicting lncRNA-protein interactions by combining serial fusion with feature reuse 
 
-we proposed a computational method LPI-MFC to predict lncRNA-protein interactions from sequences, secondary structure, and physicochemical property, which made use of deep learning CNN and further improve its performance using feature reuse strategy. 
+we proposed a computational method LPI-CSFFR to predict lncRNA-protein interactions from sequences, secondary structure, and physicochemical property, which made use of deep learning CNN and further improve its performance using feature reuse strategy. 
 
 # Dependency:
 
@@ -22,7 +22,7 @@ tensorflow==1.10.0
 
 scikit-learn== 0.23.2
 
-
+# NOTE
 
 Before using main.py, you need to adopt Pse-in-One-2.0 tool to obtain the vectors of physicochemical properties by python 2.7.
 
