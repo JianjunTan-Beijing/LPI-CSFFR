@@ -24,7 +24,7 @@ scikit-learn== 0.23.2
 
 # NOTE
 
-Before using main.py, you need to adopt Pse-in-One-2.0 tool to obtain the vectors of physicochemical properties by python 2.7.
+Before using main.py, you need to adopt Pse-in-One-2.0 tool from http://bioinformatics.hitsz.edu.cn/Pse-in-One2.0/download/ to obtain the vectors of physicochemical properties by python 2.7.
 
 Take dataset RPI1460 as an example: 
 
@@ -36,7 +36,7 @@ python pse.py  ./data/sequence/RPI1460_rdprotein_seq.txt  Protein PC-PseAAC-Gene
 
 python main.py -d 'RPI1460' -sample 'random' -mode 'cnnsep_denseblock'
 
-where 'RPI1460' is lncRNA-protein interaction dataset, 'random' means the negative samples being randomly selected, 'cnnsep_denseblock' is a serial fusion framework MFC_SER, and LPI-MFC will do 5-fold cross-validation for it. you can also choose the other dataset 'RPI1807', the other sample 'swrandom', and mode 'cnn_denseblock'.
+where 'RPI1460' is lncRNA-protein interaction dataset, 'random' means the negative samples being randomly selected, 'cnnsep_denseblock' is a serial fusion framework CSFFR_SER, and LPI-CSFFR will do 5-fold cross-validation for it. you can also choose the other dataset 'RPI1807', the other sample 'swrandom', and mode 'cnn_denseblock'.
 
 
 
