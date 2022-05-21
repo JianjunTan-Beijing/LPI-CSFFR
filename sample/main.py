@@ -311,8 +311,8 @@ def main(args):
         train_id = [i for i in range(sample_train_num) if i % K_FOLD != fold]
         test_id = [i for i in range(sample_train_num) if i % K_FOLD == fold]
 
-        X_train_conjoint = [np.array(X_train_al_sep[0][0][train_id]), np.array(X_train_al_sep[0][1][train_id]), np.array(X_train_al_sep[0][2][train_id]), np.array(X_train_al_sep[0][3][train_id]), np.array(X_train_al_sep[0][4][train_id]), np.array(X_train_al_sep[0][5][train_id])]
-        X_test_conjoint = [np.array(X_train_al_sep[0][0][test_id]), np.array(X_train_al_sep[0][1][test_id]), np.array(X_train_al_sep[0][2][test_id]), np.array(X_train_al_sep[0][3][test_id]), np.array(X_train_al_sep[0][4][test_id]), np.array(X_train_al_sep[0][5][test_id])]
+        X_train_conjoint = [np.array(X_train_al_sep[0][0][train_id]), np.array(X_train_al_sep[0][1][train_id]), np.array(X_train_al_sep[0][4][train_id]), np.array(X_train_al_sep[0][5][train_id]), np.array(X_train_al_sep[0][2][train_id]), np.array(X_train_al_sep[0][3][train_id])]
+        X_test_conjoint = [np.array(X_train_al_sep[0][0][test_id]), np.array(X_train_al_sep[0][1][test_id]), np.array(X_train_al_sep[0][4][test_id]), np.array(X_train_al_sep[0][5][test_id]), np.array(X_train_al_sep[0][2][test_id]), np.array(X_train_al_sep[0][3][test_id])]
 
         y_train_mono = y_train_al[train_id]
         y_train = np_utils.to_categorical(y_train_mono, 2)
@@ -329,11 +329,11 @@ def main(args):
 
         print('start train ' + args.mode)
         if args.mode == 'cnn_denseblock':
-            model_conjoint_cnn_sep = conjoint_cnn_denseblock(p_seq_coding_length,r_seq_coding_length, p_struct_coding_length, r_struct_coding_length, p_pse_coding_length,r_pse_coding_length,
+            model_conjoint_cnn_sep = conjoint_cnn_denseblock(p_seq_coding_length,r_seq_coding_length,p_pse_coding_length,r_pse_coding_length, p_struct_coding_length, r_struct_coding_length, 
                                                              pro_seq_coding = True, pro_struct_coding = True, pro_pse_coding = True, rna_seq_coding = True, rna_struct_coding = True, rna_pse_coding = True)
 
         elif args.mode == 'cnnsep_denseblock':
-            model_conjoint_cnn_sep = conjoint_cnn_sep_denseblock( p_seq_coding_length, r_seq_coding_length,p_struct_coding_length, r_struct_coding_length,p_pse_coding_length, r_pse_coding_length,
+            model_conjoint_cnn_sep = conjoint_cnn_sep_denseblock( p_seq_coding_length, r_seq_coding_length,p_pse_coding_length, r_pse_coding_length,p_struct_coding_length, r_struct_coding_length,
                                                                  pro_seq_coding=True, pro_struct_coding=True,
                                                                  pro_pse_coding=True, rna_seq_coding=True,
                                                                  rna_struct_coding=True, rna_pse_coding=True)
